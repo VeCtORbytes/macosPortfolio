@@ -4,8 +4,10 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 import { dockApps } from "#constants";
+import useWindowStore from "#store/window";
 
   const Dock = () => {
+  const {openWindow , closeWindow , focusWindow} = useWindowStore();
   const dockRef = useRef(null);
 
   useGSAP(() => {
@@ -60,7 +62,15 @@ import { dockApps } from "#constants";
 
   const toggleApp = (app) => {
     if (!app.canOpen) return;
-    console.log("Opening:", app.id);
+
+    const window = windows[app.id];
+
+    if(window.isOpen){
+      closeWindow(app.id);
+    }else{
+      openWindow(app.id)
+    }
+    console.log(windows);
   };
 
   return (
