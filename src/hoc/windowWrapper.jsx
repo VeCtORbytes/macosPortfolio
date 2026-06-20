@@ -56,16 +56,23 @@ const WindowWrapper = (Component, WindowKey) => {
       const el = ref.current;
       if (!el) return;
       const draggable = Draggable.create(el, {
+        trigger: el.querySelector("#window-header"),
         onPress: () => focusWindow(WindowKey),
       })[0];
 
-      if (isMaximized) {
-        draggable?.disable();
-      } else {
-        draggable?.enable();
-      }
+      const disable = () => draggable?.disable();
+      const enable = () => {
+        if (!isMaximized) draggable?.enable();
+      };
+
+      window.addEventListener("item-drag-start", disable);
+      window.addEventListener("item-drag-end", enable);
+
+      if (isMaximized) draggable?.disable();
 
       return () => {
+        window.removeEventListener("item-drag-start", disable);
+        window.removeEventListener("item-drag-end", enable);
         draggable?.kill();
       };
     }, [focusWindow, isMaximized]);

@@ -120,34 +120,34 @@ const techStack = [
   },
 ];
 
-const socials = [
+export const socials = [
   {
     id: 1,
-    text: "Github",
+    text: "GitHub",
     icon: "/icons/github.svg",
-    bg: "#f4656b",
-    link: "https://github.com/JavaScript-Mastery-Pro",
+    bg: "#24292e",
+    link: "https://github.com/VeCtORbytes",
   },
   {
     id: 2,
-    text: "Platform",
-    icon: "/icons/atom.svg",
-    bg: "#4bcb63",
-    link: "https://jsmastery.com/",
+    text: "LinkedIn",
+    icon: "/icons/linkedin.svg",
+    bg: "#0077b5",
+    link: "https://www.linkedin.com/in/sarthakgupta25/",
   },
   {
     id: 3,
-    text: "Twitter/X",
-    icon: "/icons/twitter.svg",
-    bg: "#ff866b",
-    link: "https://x.com/jsmasterypro",
+    text: "LeetCode",
+    icon: "/icons/leetcode.svg",
+    bg: "#FFA116",
+    link: "https://leetcode.com/u/sarthak_gupta25/",
   },
   {
     id: 4,
-    text: "LinkedIn",
-    icon: "/icons/linkedin.svg",
-    bg: "#05b6f6",
-    link: "https://www.linkedin.com/company/javascriptmastery/posts/?feedView=all",
+    text: "Email",
+    icon: "/icons/mail.svg",
+    bg: "#ef4444",
+    link: "mailto:sarthakgupta2503@gmail.com",
   },
 ];
 
@@ -198,15 +198,7 @@ const gallery = [
   },
 ];
 
-export {
-  navLinks,
-  navIcons,
-  dockApps,
-  techStack,
-  socials,
-  photosLinks,
-  gallery,
-};
+export { navLinks, navIcons, dockApps, techStack, photosLinks, gallery };
 
 const WORK_LOCATION = {
   id: 1,
@@ -216,160 +208,362 @@ const WORK_LOCATION = {
   kind: "folder",
   children: [
     // ▶ Project 1
+    // ===============================
+    // PROJECT 1 — HIRELENS
+    // ===============================
+
     {
       id: 5,
-      name: "Nike Ecommerce Website Application",
+      name: "HireLens",
       icon: "/images/folder.png",
       kind: "folder",
-      position: "top-10 left-5", // icon position inside Finder
-      windowPosition: "top-[5vh] left-5", // optional: Finder window position
+      position: "top-10 left-5",
+      windowPosition: "top-[5vh] left-5",
       children: [
         {
           id: 1,
-          name: "Nike Project.txt",
+          name: "README.txt",
           icon: "/images/txt.png",
           kind: "file",
           fileType: "txt",
           position: "top-5 left-10",
           description: [
-            "The Nike eCommerce website is a sleek and modern platform designed for shopping the latest Nike collections.",
-            "Instead of a simple online store, it delivers an immersive experience with bold visuals, interactive product displays, and smooth navigation.",
-            "Think of it like walking into a flagship Nike store—but right from your phone or laptop.",
-            "It's built with Next.js and Tailwind, ensuring fast performance, responsive design, and a clean, premium look.",
+            "HireLens is an AI-powered hiring workspace built for recruiters and HR teams.",
+            "Upload resumes, create job requirements and score candidates using AI.",
+            "Built with Next.js, FastAPI, PostgreSQL, Supabase and Groq.",
+            "Developed during my AI + Full Stack Engineering internship.",
           ],
         },
         {
           id: 2,
-          name: "nike.com",
+          name: "Frontend.url",
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
-          href: "https://youtu.be/fZdTYswuZjU?si=Awjl-pIst9e09_UU",
+          href: "https://resume-screener-cyan-xi.vercel.app/",
           position: "top-10 right-20",
         },
         {
+          id: 3,
+          name: "Backend.url",
+          icon: "/images/safari.png",
+          kind: "file",
+          fileType: "url",
+          href: "https://resume-screener-rtm6.onrender.com",
+          position: "top-28 left-20",
+        },
+        {
           id: 4,
-          name: "nike.png",
+          name: "GitHub.url",
+          icon: "/images/github.png",
+          kind: "file",
+          fileType: "url",
+          href: "https://github.com/VeCtORbytes/resume-screener",
+          position: "top-45 right-10",
+        },
+        {
+          id: 5,
+          name: "Screenshot.png",
           icon: "/images/image.png",
           kind: "file",
           fileType: "img",
           position: "top-52 right-80",
-          imageUrl: "/images/project-1.png",
-        },
-        {
-          id: 5,
-          name: "Design.fig",
-          icon: "/images/plain.png",
-          kind: "file",
-          fileType: "fig",
-          href: "https://google.com",
-          position: "top-60 right-20",
+          imageUrl: "/images/hirelens.png",
         },
       ],
     },
 
-    // ▶ Project 2
+    // ===============================
+    // PROJECT 2 — LEETCRACK
+    // ===============================
+
     {
       id: 6,
-      name: "AI Resume Analyzer",
+      name: "LeetCrack",
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-52 right-80",
-      windowPosition: "top-[20vh] left-7",
+      windowPosition: "top-[15vh] left-10",
       children: [
         {
           id: 1,
-          name: "AI Resume Analyzer Project.txt",
-          icon: "/images/txt.png",
-          kind: "file",
-          fileType: "txt",
-          position: "top-5 right-10",
-          description: [
-            "AI Resume Analyzer is a smart tool that helps you perfect your resume with instant feedback.",
-            "Instead of guessing what recruiters want, you get AI-powered insights on keywords, formatting, and overall impact.",
-            "Think of it like having a career coach—pointing out strengths, fixing weaknesses, and boosting your chances of landing interviews.",
-            "It's built with Next.js and Tailwind, so it runs fast, looks professional, and works seamlessly on any device.",
-          ],
-        },
-        {
-          id: 2,
-          name: "ai-resume-analyzer.com",
-          icon: "/images/safari.png",
-          kind: "file",
-          fileType: "url",
-          href: "https://youtu.be/iYOz165wGkQ?si=R1hs8Legl200m0Cl",
-          position: "top-20 left-20",
-        },
-        {
-          id: 4,
-          name: "ai-resume-analyzer.png",
-          icon: "/images/image.png",
-          kind: "file",
-          fileType: "img",
-          position: "top-52 left-80",
-          imageUrl: "/images/project-2.png",
-        },
-        {
-          id: 5,
-          name: "Design.fig",
-          icon: "/images/plain.png",
-          kind: "file",
-          fileType: "fig",
-          href: "https://google.com",
-          position: "top-60 left-5",
-        },
-      ],
-    },
-
-    // ▶ Project 3
-    {
-      id: 7,
-      name: "Food Delivery App",
-      icon: "/images/folder.png",
-      kind: "folder",
-      position: "top-10 left-80",
-      windowPosition: "top-[33vh] left-7",
-      children: [
-        {
-          id: 1,
-          name: "Food Delivery App Project.txt",
+          name: "README.txt",
           icon: "/images/txt.png",
           kind: "file",
           fileType: "txt",
           position: "top-5 left-10",
           description: [
-            "Our Food Delivery App is a fast and convenient way to order meals from your favorite restaurants.",
-            "Instead of making calls or waiting in line, you can browse menus, customize orders, and track deliveries in real time.",
-            "Think of it like having your favorite restaurants in your pocket—ready to deliver anytime, anywhere.",
-            "It’s built with React Native, so it works smoothly on both iOS and Android with a clean, modern design.",
+            "LeetCrack is a LeetCode-inspired coding platform.",
+            "Supports JavaScript, Python and C++ execution.",
+            "Includes GitHub authentication and coding workspace.",
+            "Built using Next.js, Supabase and Monaco Editor.",
           ],
         },
         {
           id: 2,
-          name: "food-delivery-app.com",
+          name: "Live Demo.url",
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
-          href: "https://youtu.be/LKrX390fJMw?si=cExkuVhf2DTV9G2-",
+          href: "https://leet-crack.vercel.app/",
           position: "top-10 right-20",
         },
         {
+          id: 3,
+          name: "GitHub.url",
+          icon: "/images/github.png",
+          kind: "file",
+          fileType: "url",
+          href: "https://github.com/VeCtORbytes/LeetCrack",
+          position: "top-28 left-20",
+        },
+        {
           id: 4,
-          name: "food-delivery-app.png",
+          name: "Screenshot.png",
           icon: "/images/image.png",
           kind: "file",
           fileType: "img",
+          imageUrl: "/images/leetcrack.png",
           position: "top-52 right-80",
-          imageUrl: "/images/project-3.png",
+        },
+      ],
+    },
+
+    // ===============================
+    // PROJECT 3 — STOCKFLOW
+    // ===============================
+
+    {
+      id: 7,
+      name: "StockFlow",
+      icon: "/images/folder.png",
+      kind: "folder",
+      position: "top-10 left-80",
+      windowPosition: "top-[25vh] left-15",
+      children: [
+        {
+          id: 1,
+          name: "README.txt",
+          icon: "/images/txt.png",
+          kind: "file",
+          fileType: "txt",
+          position: "top-5 left-10",
+          description: [
+            "StockFlow is a stock trading simulator inspired by Zerodha.",
+            "Track portfolios and visualize market activity.",
+            "Built using the MERN stack.",
+            "Created during my Full Stack Developer internship.",
+          ],
         },
         {
-          id: 5,
-          name: "Design.fig",
-          icon: "/images/plain.png",
+          id: 2,
+          name: "Live Demo.url",
+          icon: "/images/safari.png",
           kind: "file",
-          fileType: "fig",
-          href: "https://google.com",
-          position: "top-60 right-20",
+          fileType: "url",
+          href: "https://stocker-1-frontend.onrender.com",
+          position: "top-10 right-20",
+        },
+        {
+          id: 3,
+          name: "GitHub.url",
+          icon: "/images/github.png",
+          kind: "file",
+          fileType: "url",
+          href: "https://github.com/VeCtORbytes/Stocker",
+          position: "top-28 left-20",
+        },
+        {
+          id: 4,
+          name: "Screenshot.png",
+          icon: "/images/image.png",
+          kind: "file",
+          fileType: "img",
+          imageUrl: "/images/stockflow.png",
+          position: "top-52 right-80",
+        },
+      ],
+    },
+
+    // ===============================
+    // PROJECT 4 — WANDERLUST
+    // ===============================
+
+    {
+      id: 8,
+      name: "Wanderlust",
+      icon: "/images/folder.png",
+      kind: "folder",
+      position: "top-52 left-5",
+      windowPosition: "top-[10vh] left-20",
+      children: [
+        {
+          id: 1,
+          name: "README.txt",
+          icon: "/images/txt.png",
+          kind: "file",
+          fileType: "txt",
+          position: "top-5 left-10",
+          description: [
+            "Travel and property listing platform.",
+            "Users can browse destinations, upload listings and leave reviews.",
+            "Built using Node.js, Express, MongoDB and Cloudinary.",
+            "One of my first complete full-stack applications.",
+          ],
+        },
+        {
+          id: 2,
+          name: "Live Demo.url",
+          icon: "/images/safari.png",
+          kind: "file",
+          fileType: "url",
+          href: "https://delta-project-2-hb3x.onrender.com",
+          position: "top-10 right-20",
+        },
+        {
+          id: 3,
+          name: "GitHub.url",
+          icon: "/images/github.png",
+          kind: "file",
+          fileType: "url",
+          href: "https://github.com/VeCtORbytes/Delta-project",
+          position: "top-28 left-20",
+        },
+        {
+          id: 4,
+          name: "Screenshot.png",
+          icon: "/images/image.png",
+          kind: "file",
+          fileType: "img",
+          imageUrl: "/images/wanderlust.png",
+          position: "top-52 right-80",
+        },
+      ],
+    },
+
+    // ===============================
+    // PROJECT 5 — CODEREVIEWER
+    // ===============================
+
+    {
+      id: 9,
+      name: "CodeReviewer",
+      icon: "/images/folder.png",
+      kind: "folder",
+      position: "top-96 left-40",
+      windowPosition: "top-[18vh] left-25",
+      children: [
+        {
+          id: 1,
+          name: "README.txt",
+          icon: "/images/txt.png",
+          kind: "file",
+          fileType: "txt",
+          position: "top-5 left-10",
+          description: [
+            "AI-powered code review platform.",
+            "Analyze code quality and receive intelligent suggestions.",
+            "Built using React, Node.js and AI APIs.",
+            "Helps developers improve code before deployment.",
+          ],
+        },
+        {
+          id: 2,
+          name: "Live Demo.url",
+          icon: "/images/safari.png",
+          kind: "file",
+          fileType: "url",
+          href: "https://codereviewer-1-fyjr.onrender.com",
+          position: "top-10 right-20",
+        },
+        {
+          id: 3,
+          name: "GitHub.url",
+          icon: "/images/github.png",
+          kind: "file",
+          fileType: "url",
+          href: "https://github.com/VeCtORbytes/CodeReviewer",
+          position: "top-28 left-20",
+        },
+      ],
+    },
+
+    // ===============================
+    // PROJECT 6 — TODO APP
+    // ===============================
+
+    {
+      id: 10,
+      name: "Todo App",
+      icon: "/images/folder.png",
+      kind: "folder",
+      position: "top-96 right-20",
+      windowPosition: "top-[12vh] left-30",
+      children: [
+        {
+          id: 1,
+          name: "README.txt",
+          icon: "/images/txt.png",
+          kind: "file",
+          fileType: "txt",
+          position: "top-5 left-10",
+          description: [
+            "Task management application.",
+            "Create, organize and manage daily tasks.",
+            "Authentication, CRUD operations and responsive UI.",
+            "Built using MERN stack technologies.",
+          ],
+        },
+        {
+          id: 2,
+          name: "Live Demo.url",
+          icon: "/images/safari.png",
+          kind: "file",
+          fileType: "url",
+          href: "https://todo-app-flame-gamma-50.vercel.app/login",
+          position: "top-10 right-20",
+        },
+        {
+          id: 3,
+          name: "GitHub.url",
+          icon: "/images/github.png",
+          kind: "file",
+          fileType: "url",
+          href: "https://github.com/VeCtORbytes/TODO-APP",
+          position: "top-28 left-20",
+        },
+      ],
+    },
+
+    // ===============================
+    // ARTICLES
+    // ===============================
+
+    {
+      id: 11,
+      name: "Articles",
+      icon: "/images/folder.png",
+      kind: "folder",
+      position: "top-[130px] left-[250px]",
+      windowPosition: "top-[8vh] left-32",
+      children: [
+        {
+          id: 1,
+          name: "AI Moving Beyond Chatbots.url",
+          icon: "/images/safari.png",
+          kind: "file",
+          fileType: "url",
+          href: "https://www.tectome.com/blogs/ai-moving-beyond-chatbots",
+          position: "top-5 left-10",
+        },
+        {
+          id: 2,
+          name: "Operations Automation.url",
+          icon: "/images/safari.png",
+          kind: "file",
+          fileType: "url",
+          href: "https://www.tectome.com/blogs/5-workflows-your-operations-team-can-automate-this-month",
+          position: "top-20 right-20",
         },
       ],
     },
@@ -390,7 +584,7 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "img",
       position: "top-10 left-5",
-      imageUrl: "/images/adrian.jpg",
+      imageUrl: "/images/sarthak.jpg", // 🔁 replace with your actual photo
     },
     {
       id: 2,
@@ -399,7 +593,7 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "img",
       position: "top-28 right-72",
-      imageUrl: "/images/adrian-2.jpg",
+      imageUrl: "/images/sarthak-2.jpg", // 🔁 replace with your actual photo
     },
     {
       id: 3,
@@ -408,7 +602,7 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "img",
       position: "top-52 left-80",
-      imageUrl: "/images/adrian-3.jpeg",
+      imageUrl: "/images/sarthak-3.jpeg", // 🔁 replace with your actual photo
     },
     {
       id: 4,
@@ -417,13 +611,13 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "txt",
       position: "top-60 left-5",
-      subtitle: "Meet the Developer Behind the Code",
-      image: "/images/adrian.jpg",
+      subtitle: "Full Stack Developer | MERN Stack | AWS & DevOps Enthusiast",
+      image: "/images/sarthak.jpg", // 🔁 replace with your actual photo
       description: [
-        "Hey! I’m Adrian 👋, a web developer who enjoys building sleek, interactive websites that actually work well.",
-        "I specialize in JavaScript, React, and Next.js—and I love making things feel smooth, fast, and just a little bit delightful.",
-        "I’m big on clean UI, good UX, and writing code that doesn’t need a search party to debug.",
-        "Outside of dev work, you'll find me tweaking layouts at 2AM, sipping overpriced coffee, or impulse-buying gadgets I absolutely convinced myself I needed 😅",
+        "Hey! I'm Sarthak Gupta 👋, a Full Stack Developer who works primarily with the MERN stack and enjoys solving real-world problems through software.",
+        "Right now I'm building out this portfolio while diving deeper into AWS, Docker, Kubernetes, System Design, Redis, and CI/CD — basically anything cloud-native and DevOps-flavored.",
+        "I'm always up for collaborating on open source full stack or DevOps projects, and I'm especially interested in scaling distributed systems and cloud-native architectures.",
+        "Feel free to ask me about MERN Stack, React, Node.js, Express.js, MongoDB, REST APIs, Authentication, or Full Stack Development in general — happy to talk shop.",
       ],
     },
   ],
