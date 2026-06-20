@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { WindowControls } from "#components";
 import WindowWrapper from "#hoc/windowWrapper";
 import { Download } from "lucide-react";
@@ -10,13 +9,6 @@ import "react-pdf/dist/Page/TextLayer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const Resume = () => {
-  const [numPages, setNumPages] = useState(null);
-  const pageNumber = 1;
-
-  const onDocumentLoadSuccess = ({ numPages }) => {
-    setNumPages(numPages);
-  };
-
   return (
     <>
       <div id="window-header">
@@ -33,10 +25,7 @@ const Resume = () => {
         </a>
       </div>
       <div>
-        <Document
-          file="/files/resume.pdf"
-          onLoadSuccess={onDocumentLoadSuccess}
-        >
+        <Document file="/files/resume.pdf">
           <Page pageNumber={1} renderTextLayer renderAnnotationLayer />
         </Document>
       </div>
