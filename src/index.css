@@ -394,7 +394,7 @@ body {
         }
 
         button {
-          @apply hover:underline cursor-default truncate max-w-32;
+          @apply hover:underline cursor-pointer truncate max-w-32;
 
           &.current {
             @apply text-gray-900 font-medium;
@@ -444,10 +444,10 @@ body {
   }
 
   .content {
-    @apply flex-1 p-8 bg-white max-w-2xl relative;
+    @apply flex-1 p-8 bg-white max-w-2xl relative flex flex-wrap gap-6 content-start overflow-y-auto;
 
     li {
-      @apply absolute flex items-center flex-col gap-1.5 px-2 py-2 rounded-lg cursor-default select-none transition-colors;
+      @apply flex items-center flex-col gap-1.5 px-2 py-2 rounded-lg cursor-grab active:cursor-grabbing select-none transition-colors w-24 min-h-28 justify-start;
 
       &:hover {
         background: rgba(10, 132, 255, 0.1);
@@ -458,7 +458,7 @@ body {
       }
 
       p {
-        @apply text-[12px] text-center font-medium w-40 text-gray-800 leading-tight;
+        @apply text-[12px] text-center font-medium w-full text-gray-800 leading-tight break-words px-1;
       }
     }
   }

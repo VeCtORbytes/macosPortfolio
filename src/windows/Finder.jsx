@@ -7,7 +7,7 @@ import WindowWrapper from "#hoc/windowWrapper.jsx";
 import { locations } from "#constants/index.js";
 import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/all";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const Finder = () => {
   const {
@@ -21,6 +21,11 @@ const Finder = () => {
   } = useLocationStore();
   const { openWindow } = useWindowStore();
   const contentRef = useRef(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    setSearchQuery("");
+  }, [activeLocation]);
 
   const openFavourite = (location) =>
     navigateTo(location, [{ id: location.id, name: location.name, location }]);
@@ -39,9 +44,13 @@ const Finder = () => {
         { id: item.id, name: item.name, location: item },
       ]);
     if (["fig", "url"].includes(item.fileType) && item.href)
-      return window.open(item.href, "blank");
+      return window.open(item.href, "_blank");
     openWindow(`${item.fileType}${item.kind}`, item);
   };
+
+  const filteredChildren = activeLocation?.children?.filter((item) =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   useGSAP(() => {
     if (!activeLocation) return;
@@ -57,14 +66,14 @@ const Finder = () => {
         window.dispatchEvent(new Event("item-drag-end"));
       },
       onClick: function () {
-        const id = Number(this.target.dataset.id);
-        const item = activeLocation.children.find((c) => c.id === id);
+        const id = Number(this.target.closest("li").dataset.id);
+        const item = filteredChildren?.find((c) => c.id === id);
         if (item) openItem(item);
       },
     });
 
     return () => draggables.forEach((d) => d.kill());
-  }, [activeLocation]);
+  }, [activeLocation, searchQuery]);
 
   const renderList = (name, items, onClick) => (
     <div>
@@ -90,7 +99,7 @@ const Finder = () => {
     <>
       <div id="window-header">
         <WindowControls target="finder" />
-        <Search className="icon" />
+        <h2>{activeLocation?.name || "Finder"}</h2>
       </div>
 
       <div className="toolbar">
@@ -124,6 +133,19 @@ const Finder = () => {
             </span>
           ))}
         </div>
+
+        <div className="flex-1" />
+
+        <div className="flex items-center gap-1.5 bg-black/5 rounded-md px-2.5 py-1 text-xs border border-gray-200/50 mr-2">
+          <Search className="size-3.5 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Search"
+            className="bg-transparent border-none outline-none text-gray-700 w-28 placeholder-gray-400"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
       </div>
 
       <div className="bg-white flex h-full">
@@ -132,8 +154,8 @@ const Finder = () => {
           {renderList("Work", locations.work.children, openWorkChild)}
         </div>
         <ul className="content" ref={contentRef}>
-          {activeLocation?.children.map((item) => (
-            <li key={item.id} data-id={item.id} className={item.position}>
+          {filteredChildren?.map((item) => (
+            <li key={item.id} data-id={item.id}>
               <img src={item.icon} alt={item.name} />
               <p>{item.name}</p>
             </li>
