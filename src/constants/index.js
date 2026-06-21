@@ -236,7 +236,7 @@ const WORK_LOCATION = {
         },
         {
           id: 2,
-          name: "Frontend.url",
+          name: "HireLens Frontend",
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
@@ -245,7 +245,7 @@ const WORK_LOCATION = {
         },
         {
           id: 3,
-          name: "Backend.url",
+          name: "HireLens Backend",
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
@@ -254,7 +254,7 @@ const WORK_LOCATION = {
         },
         {
           id: 4,
-          name: "GitHub.url",
+          name: "GitHub",
           icon: "/images/github.png",
           kind: "file",
           fileType: "url",
@@ -301,7 +301,7 @@ const WORK_LOCATION = {
         },
         {
           id: 2,
-          name: "Live Demo.url",
+          name: "LeetCrack Live",
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
@@ -310,7 +310,7 @@ const WORK_LOCATION = {
         },
         {
           id: 3,
-          name: "GitHub.url",
+          name: "GitHub",
           icon: "/images/github.png",
           kind: "file",
           fileType: "url",
@@ -357,7 +357,7 @@ const WORK_LOCATION = {
         },
         {
           id: 2,
-          name: "Live Demo.url",
+          name: "StockFlow Live",
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
@@ -366,7 +366,7 @@ const WORK_LOCATION = {
         },
         {
           id: 3,
-          name: "GitHub.url",
+          name: "GitHub",
           icon: "/images/github.png",
           kind: "file",
           fileType: "url",
@@ -413,7 +413,7 @@ const WORK_LOCATION = {
         },
         {
           id: 2,
-          name: "Live Demo.url",
+          name: "Wanderlust Live",
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
@@ -422,7 +422,7 @@ const WORK_LOCATION = {
         },
         {
           id: 3,
-          name: "GitHub.url",
+          name: "GitHub",
           icon: "/images/github.png",
           kind: "file",
           fileType: "url",
@@ -469,7 +469,7 @@ const WORK_LOCATION = {
         },
         {
           id: 2,
-          name: "Live Demo.url",
+          name: "CodeReviewer Live",
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
@@ -478,7 +478,7 @@ const WORK_LOCATION = {
         },
         {
           id: 3,
-          name: "GitHub.url",
+          name: "GitHub",
           icon: "/images/github.png",
           kind: "file",
           fileType: "url",
@@ -516,7 +516,7 @@ const WORK_LOCATION = {
         },
         {
           id: 2,
-          name: "Live Demo.url",
+          name: "TodoApp Live",
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
@@ -525,7 +525,7 @@ const WORK_LOCATION = {
         },
         {
           id: 3,
-          name: "GitHub.url",
+          name: "GitHub",
           icon: "/images/github.png",
           kind: "file",
           fileType: "url",
@@ -584,7 +584,7 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "img",
       position: "top-10 left-5",
-      imageUrl: "/images/sarthak.jpg", // 🔁 replace with your actual photo
+      imageUrl: "/images/sarthak.jpeg", // 🔁 replace with your actual photo
     },
     {
       id: 2,
@@ -593,7 +593,7 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "img",
       position: "top-28 right-72",
-      imageUrl: "/images/sarthak-2.jpg", // 🔁 replace with your actual photo
+      imageUrl: "/images/sarthak-2.jpeg", // 🔁 replace with your actual photo
     },
     {
       id: 3,
@@ -612,7 +612,7 @@ const ABOUT_LOCATION = {
       fileType: "txt",
       position: "top-60 left-5",
       subtitle: "Full Stack Developer | MERN Stack | AWS & DevOps Enthusiast",
-      image: "/images/sarthak.jpg", // 🔁 replace with your actual photo
+      image: "/images/sarthak.jpeg", // 🔁 replace with your actual photo
       description: [
         "Hey! I'm Sarthak Gupta 👋, a Full Stack Developer who works primarily with the MERN stack and enjoys solving real-world problems through software.",
         "Right now I'm building out this portfolio while diving deeper into AWS, Docker, Kubernetes, System Design, Redis, and CI/CD — basically anything cloud-native and DevOps-flavored.",
