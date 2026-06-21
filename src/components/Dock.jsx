@@ -7,10 +7,22 @@ import { dockApps, locations } from "#constants";
 import useWindowStore from "#store/window";
 import useLocationStore from "#store/location";
 
-  const Dock = () => {
+const Dock = () => {
   const { openWindow, closeWindow, focusWindow, restoreWindow, windows } = useWindowStore();
   const navigateTo = useLocationStore((s) => s.navigateTo);
+  const activeLocation = useLocationStore((s) => s.activeLocation);
   const dockRef = useRef(null);
+
+  // Check if an app is open (taking finder vs trash mapping into account)
+  const isAppOpen = (id) => {
+    if (id === "trash") {
+      return windows.finder?.isOpen && activeLocation?.id === locations.trash.id;
+    }
+    if (id === "finder") {
+      return windows.finder?.isOpen && activeLocation?.id !== locations.trash.id;
+    }
+    return windows[id]?.isOpen;
+  };
 
   useGSAP(() => {
     const dock = dockRef.current;
@@ -62,10 +74,28 @@ import useLocationStore from "#store/location";
     };
   }, []);
 
-  const toggleApp = (app) => {
+  const toggleApp = (app, event) => {
     if (!app.canOpen) return;
 
-    if (app.id === "trash") {
+    const id = app.id;
+    const isAlreadyOpen = isAppOpen(id);
+
+    // Bouncing launch feedback
+    if (!isAlreadyOpen && event?.currentTarget) {
+      const iconBtn = event.currentTarget;
+      gsap.to(iconBtn, {
+        y: -16,
+        duration: 0.15,
+        yoyo: true,
+        repeat: 5,
+        ease: "power1.inOut",
+        onComplete: () => {
+          gsap.to(iconBtn, { y: 0, duration: 0.1 });
+        }
+      });
+    }
+
+    if (id === "trash") {
       navigateTo(locations.trash, [
         { id: locations.trash.id, name: "Trash", location: locations.trash },
       ]);
@@ -73,17 +103,17 @@ import useLocationStore from "#store/location";
       return;
     }
 
-    const winState = windows[app.id];
+    const winState = windows[id];
 
     if (!winState) {
-      console.error(`Window not found for app ${app.id}`);
+      console.error(`Window not found for app ${id}`);
       return;
     }
 
     if (!winState.isOpen) {
-      openWindow(app.id);
+      openWindow(id);
     } else if (winState.isMinimized) {
-      restoreWindow(app.id);
+      restoreWindow(id);
     } else {
       // Find the maximum zIndex among all open, non-minimized windows
       const openWindows = Object.values(windows).filter((w) => w.isOpen && !w.isMinimized);
@@ -91,19 +121,19 @@ import useLocationStore from "#store/location";
 
       if (winState.zIndex < maxZIndex) {
         // Bring to front if it is behind other windows
-        focusWindow(app.id);
+        focusWindow(id);
       } else {
         // Already on top, close it
-        closeWindow(app.id);
+        closeWindow(id);
       }
     }
   };
 
   return (
     <section id="dock">
-      <div ref={dockRef} className="dock-container">
+      <div ref={dockRef} className="dock-container pb-2">
         {dockApps.map(({ id, name, icon, canOpen }) => (
-          <div key={id} className="relative flex justify-center">
+          <div key={id} className="relative flex justify-center pb-1">
             <button
               type="button"
               className="dock-icon"
@@ -112,7 +142,7 @@ import useLocationStore from "#store/location";
               data-tooltip-content={name}
               data-tooltip-delay-show={150}
               disabled={!canOpen}
-              onClick={() => toggleApp({ id, canOpen })}
+              onClick={(e) => toggleApp({ id, canOpen }, e)}
             >
               <img
                 src={`/images/${icon}`}
@@ -121,6 +151,9 @@ import useLocationStore from "#store/location";
                 className={canOpen ? "" : "opacity-60"}
               />
             </button>
+            {isAppOpen(id) && (
+              <span className="absolute bottom-[-1px] w-[5px] h-[5px] bg-black/60 dark:bg-white/70 rounded-full" />
+            )}
           </div>
         ))}
         <Tooltip id="dock-tooltip" place="top" className="tooltip" />
