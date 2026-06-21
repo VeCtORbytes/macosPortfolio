@@ -335,7 +335,7 @@ body {
   }
 
   #photos {
-    @apply max-w-3xl absolute top-96 left-1/2 -translate-y-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-3xl absolute top-96 left-1/2 -translate-y-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     .sidebar {
       @apply w-3/12 flex-none bg-gray-50 border-r border-gray-200 flex flex-col p-5;
@@ -346,10 +346,14 @@ body {
 
       ul {
         li {
-          @apply flex space-y-1 items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-colors;
+          @apply flex space-y-1 items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-colors text-gray-700;
 
-          &:first-child {
+          &.active {
             @apply bg-blue-100 text-blue-700;
+          }
+
+          &:hover:not(.active) {
+            @apply bg-black/5;
           }
 
           img {
@@ -364,30 +368,16 @@ body {
     }
 
     .gallery {
-      @apply p-5;
+      @apply p-5 overflow-y-auto max-h-[400px];
 
       ul {
-        @apply grid grid-cols-5 grid-rows-5 gap-2.5;
+        @apply grid grid-cols-3 gap-3;
 
         li {
+          @apply aspect-square rounded-xl overflow-hidden shadow-xs hover:scale-[1.03] hover:shadow-md transition-all duration-300 cursor-pointer border border-gray-100;
+
           img {
-            @apply size-full object-cover rounded-lg;
-          }
-
-          &:first-child {
-            @apply row-start-1 row-span-3 col-start-1 col-span-3;
-          }
-
-          &:nth-child(2) {
-            @apply row-start-1 row-span-3 col-start-4 col-span-2;
-          }
-
-          &:nth-child(3) {
-            @apply row-start-4 row-span-2 col-start-3 col-span-3;
-          }
-
-          &:last-child {
-            @apply row-start-4 row-span-2 col-start-1 col-span-2;
+            @apply size-full object-cover;
           }
         }
       }
@@ -524,7 +514,7 @@ body {
   }
 
   #imgfile {
-    @apply w-xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-[440px] absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     #window-header {
       p {
@@ -533,10 +523,11 @@ body {
     }
 
     .preview {
-      @apply p-2 bg-gray-200 max-h-[70vh];
+      @apply bg-black/5 flex items-center justify-center overflow-hidden;
+      height: 480px;
 
       img {
-        @apply w-full h-fit object-contain object-center;
+        @apply max-h-full max-w-full object-contain;
       }
     }
   }

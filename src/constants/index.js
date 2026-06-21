@@ -163,11 +163,6 @@ const photosLinks = [
     title: "Memories",
   },
   {
-    id: 3,
-    icon: "/icons/file.svg",
-    title: "Places",
-  },
-  {
     id: 4,
     icon: "/icons/gicon4.svg",
     title: "People",
@@ -182,19 +177,27 @@ const photosLinks = [
 const gallery = [
   {
     id: 1,
-    img: "/images/gal1.png",
+    img: "/images/1690454075979_Original.jpg",
   },
   {
     id: 2,
-    img: "/images/gal2.png",
+    img: "/images/4788336E-6CB4-4A10-B533-4407AD174341.jpg",
   },
   {
     id: 3,
-    img: "/images/gal3.png",
+    img: "/images/5845AC8E-AA95-4A20-BCA4-72B1185BCD6A.jpg",
   },
   {
     id: 4,
-    img: "/images/gal4.png",
+    img: "/images/IMG_8146.PNG",
+  },
+  {
+    id: 5,
+    img: "/images/IMG_5329.JPG",
+  },
+  {
+    id: 6,
+    img: "/images/IMG_2999.jpg",
   },
 ];
 
