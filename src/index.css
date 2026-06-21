@@ -526,6 +526,36 @@ body {
     h2 {
       @apply font-bold text-sm text-center w-full;
     }
+
+    .case-study {
+      @apply mt-4 space-y-4 border-t border-gray-100/80 pt-4;
+
+      .case-block {
+        h4 {
+          @apply text-[11px] font-semibold uppercase tracking-wide text-gray-400 mb-1.5;
+        }
+
+        p {
+          @apply text-sm text-gray-600 leading-relaxed;
+        }
+
+        ul {
+          @apply space-y-1.5 text-sm text-gray-600 leading-relaxed list-disc pl-4;
+        }
+      }
+
+      .result {
+        @apply bg-green-50 -mx-2 px-3 py-2.5 rounded-lg;
+
+        h4 {
+          @apply text-green-700;
+        }
+
+        p {
+          @apply text-green-800 font-medium;
+        }
+      }
+    }
   }
 
   #imgfile {

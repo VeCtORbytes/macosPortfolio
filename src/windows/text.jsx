@@ -33,6 +33,29 @@ const Text = () => {
               {paragraph}
             </p>
           ))}
+
+        {data.caseStudy && (
+          <div className="case-study">
+            <div className="case-block">
+              <h4>The Problem</h4>
+              <p>{data.caseStudy.problem}</p>
+            </div>
+
+            <div className="case-block">
+              <h4>The Approach</h4>
+              <ul>
+                {data.caseStudy.approach.map((line, i) => (
+                  <li key={i}>{line}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="case-block result">
+              <h4>The Result</h4>
+              <p>{data.caseStudy.result}</p>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
