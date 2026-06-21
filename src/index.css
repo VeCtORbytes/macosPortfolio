@@ -534,6 +534,10 @@ body {
     }
   }
 
+  #dino {
+    @apply w-[600px] h-fit absolute top-28 left-4/12 shadow-2xl drop-shadow-2xl overflow-hidden rounded-2xl bg-[#0a0a0c] border border-neutral-800;
+  }
+
   #home {
     @apply relative z-0 max-sm:hidden;
 

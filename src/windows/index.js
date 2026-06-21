@@ -6,8 +6,9 @@ import Text from "#windows/text.jsx";
 import Image from "#windows/image.jsx";
 import Contact from "#windows/Contact.jsx";
 import Photos from "#windows/Photos.jsx";
+import Dino from "#windows/Dino.jsx";
 
-export { Terminal, Safari, Resume, Finder, Text, Image, Contact, Photos };
+export { Terminal, Safari, Resume, Finder, Text, Image, Contact, Photos, Dino };
 
 
 

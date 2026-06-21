@@ -14,6 +14,7 @@ import {
   Image,
   Contact,
   Photos,
+  Dino,
 } from "#windows";
 
 gsap.registerPlugin(Draggable);
@@ -48,6 +49,7 @@ const App = () => {
       <Image />
       <Contact />
       <Photos />
+      <Dino />
 
       <Spotlight />
 

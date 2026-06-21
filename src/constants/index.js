@@ -230,6 +230,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "txt",
           position: "top-5 left-10",
+          subtitle: "AI-powered hiring workspace for recruiters and HR teams.",
           description: [
             "HireLens is an AI-powered hiring workspace built for recruiters and HR teams.",
             "Upload resumes, create job requirements and score candidates using AI.",
@@ -264,15 +265,6 @@ const WORK_LOCATION = {
           href: "https://github.com/VeCtORbytes/resume-screener",
           position: "top-45 right-10",
         },
-        {
-          id: 5,
-          name: "Screenshot.png",
-          icon: "/images/image.png",
-          kind: "file",
-          fileType: "img",
-          position: "top-52 right-80",
-          imageUrl: "/images/hirelens.png",
-        },
       ],
     },
 
@@ -295,11 +287,11 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "txt",
           position: "top-5 left-10",
+          subtitle: "LeetCode-inspired coding practice workspace.",
           description: [
-            "LeetCrack is a LeetCode-inspired coding platform.",
-            "Supports JavaScript, Python and C++ execution.",
-            "Includes GitHub authentication and coding workspace.",
-            "Built using Next.js, Supabase and Monaco Editor.",
+            "LeetCrack is a full-stack coding practice platform with multi-language code execution, submission tracking, and a community discussion system.",
+            "Features: Sandboxed multi-language runtime (JS, Python, C++), Monaco Editor workspace, contribution streak analytics, Clerk GitHub authentication, and vote forums via Supabase RPC.",
+            "Built with Next.js 15, React 19, Supabase (PostgreSQL), Clerk, and Monaco Editor as a personal project.",
           ],
         },
         {
@@ -319,15 +311,6 @@ const WORK_LOCATION = {
           fileType: "url",
           href: "https://github.com/VeCtORbytes/LeetCrack",
           position: "top-28 left-20",
-        },
-        {
-          id: 4,
-          name: "Screenshot.png",
-          icon: "/images/image.png",
-          kind: "file",
-          fileType: "img",
-          imageUrl: "/images/leetcrack.png",
-          position: "top-52 right-80",
         },
       ],
     },
@@ -351,6 +334,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "txt",
           position: "top-5 left-10",
+          subtitle: "Stock trading simulator inspired by Zerodha.",
           description: [
             "StockFlow is a stock trading simulator inspired by Zerodha.",
             "Track portfolios and visualize market activity.",
@@ -376,15 +360,6 @@ const WORK_LOCATION = {
           href: "https://github.com/VeCtORbytes/Stocker",
           position: "top-28 left-20",
         },
-        {
-          id: 4,
-          name: "Screenshot.png",
-          icon: "/images/image.png",
-          kind: "file",
-          fileType: "img",
-          imageUrl: "/images/stockflow.png",
-          position: "top-52 right-80",
-        },
       ],
     },
 
@@ -407,11 +382,11 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "txt",
           position: "top-5 left-10",
+          subtitle: "Full-stack travel listing and property booking engine.",
           description: [
-            "Travel and property listing platform.",
-            "Users can browse destinations, upload listings and leave reviews.",
-            "Built using Node.js, Express, MongoDB and Cloudinary.",
-            "One of my first complete full-stack applications.",
+            "Wanderlust is a travel listing platform supporting full CRUD actions, geocoding integration, and user reviews.",
+            "Features: Mapbox geocoding + GeoJSON maps, Cloudinary image uploads, Passport.js authentication with 3-layer RBAC (isOwner, isReviewAuthor, isLoggedIn), Joi schema validation, and cascading delete cleanups.",
+            "Built with Node.js, Express.js (MVC/EJS), MongoDB (Mongoose), Mapbox, and Cloudinary as a personal project.",
           ],
         },
         {
@@ -420,7 +395,7 @@ const WORK_LOCATION = {
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
-          href: "https://delta-project-2-hb3x.onrender.com",
+          href: "https://delta-project-2-hb3x.onrender.com/listings",
           position: "top-10 right-20",
         },
         {
@@ -429,28 +404,19 @@ const WORK_LOCATION = {
           icon: "/images/github.png",
           kind: "file",
           fileType: "url",
-          href: "https://github.com/VeCtORbytes/Delta-project",
+          href: "https://github.com/VeCtORbytes/Delta-project.git",
           position: "top-28 left-20",
-        },
-        {
-          id: 4,
-          name: "Screenshot.png",
-          icon: "/images/image.png",
-          kind: "file",
-          fileType: "img",
-          imageUrl: "/images/wanderlust.png",
-          position: "top-52 right-80",
         },
       ],
     },
 
     // ===============================
-    // PROJECT 5 — CODEREVIEWER
+    // PROJECT 5 — CODE REVIEWER AI
     // ===============================
 
     {
       id: 9,
-      name: "CodeReviewer",
+      name: "Code Reviewer AI",
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-96 left-40",
@@ -463,20 +429,20 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "txt",
           position: "top-5 left-10",
+          subtitle: "AI-powered automated code reviews on-demand.",
           description: [
-            "AI-powered code review platform.",
-            "Analyze code quality and receive intelligent suggestions.",
-            "Built using React, Node.js and AI APIs.",
-            "Helps developers improve code before deployment.",
+            "Code Reviewer AI is an automated code review workspace that returns structured, severity-categorized reviews.",
+            "Features: Groq LLM integration with 5-model high-availability fallbacks, severity-based issue sorting (Critical/Warning/Info), 50KB payload guard, and local storage history.",
+            "Built with React, Node.js, Express.js, Groq SDK, and Axios as a personal project.",
           ],
         },
         {
           id: 2,
-          name: "CodeReviewer Live",
+          name: "Code Reviewer AI Live",
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
-          href: "https://codereviewer-1-fyjr.onrender.com",
+          href: "https://codereviewer-1-fyjr.onrender.com/",
           position: "top-10 right-20",
         },
         {
@@ -733,6 +699,13 @@ const WINDOW_CONFIG = {
     data: null,
   },
   imgfile: {
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: INITIAL_Z_INDEX,
+    data: null,
+  },
+  dino: {
     isOpen: false,
     isMinimized: false,
     isMaximized: false,
