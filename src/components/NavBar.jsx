@@ -20,20 +20,23 @@ import {
   ExternalLink,
   Mail,
   FileText,
-  RefreshCw
+  RefreshCw,
 } from "lucide-react";
 
 const Navbar = () => {
   const { openWindow } = useWindowStore();
   const toggleSpotlight = useSpotlightStore((s) => s.toggleSpotlight);
-  const { isWifiOn, toggleWifi, brightness, setBrightness, volume, setVolume } = useSystemStore();
-  
+  const { isWifiOn, toggleWifi, brightness, setBrightness, volume, setVolume } =
+    useSystemStore();
+
   const [activeMenu, setActiveMenu] = useState(null);
   const [time, setTime] = useState("");
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("theme");
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
       return saved === "dark" || (!saved && prefersDark);
     }
     return false;
@@ -43,7 +46,7 @@ const Navbar = () => {
   const [wifiNetwork, setWifiNetwork] = useState("Sarthak's Brain 5G");
   const [connectingNetwork, setConnectingNetwork] = useState(null);
   const [networksList, setNetworksList] = useState([
-    { name: "Home_Network_Ext", type: "wifi" },
+    { name: "Home_Network", type: "wifi" },
     { name: "Starbucks_Guest", type: "wifi" },
     { name: "Sarthak's Hotspot", type: "hotspot" },
   ]);
@@ -53,7 +56,7 @@ const Navbar = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState({
     title: "Lofi Coding Beats 🎧",
-    artist: "Lofi Girl / ChilledCow"
+    artist: "Lofi Girl / ChilledCow",
   });
 
   // Live dynamic clock ticking every second
@@ -90,7 +93,7 @@ const Navbar = () => {
 
   const handleIconClick = (id, event) => {
     event.stopPropagation(); // Stop bubbling to window close listener
-    
+
     if (id === 1) {
       setActiveMenu(activeMenu === "wifi" ? null : "wifi");
     } else if (id === 2) {
@@ -165,7 +168,9 @@ const Navbar = () => {
               <button
                 onClick={toggleWifi}
                 className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors duration-200 cursor-pointer outline-none ${
-                  isWifiOn ? "bg-[#007aff] dark:bg-[#0a84ff]" : "bg-black/10 dark:bg-white/10"
+                  isWifiOn
+                    ? "bg-[#007aff] dark:bg-[#0a84ff]"
+                    : "bg-black/10 dark:bg-white/10"
                 }`}
               >
                 <span
@@ -177,7 +182,9 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center justify-between bg-black/5 dark:bg-white/5 px-2.5 py-1.5 rounded-lg">
-              <span className="text-neutral-500 dark:text-neutral-400 font-medium">Status</span>
+              <span className="text-neutral-500 dark:text-neutral-400 font-medium">
+                Status
+              </span>
               <span
                 className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
                   isWifiOn
@@ -194,7 +201,7 @@ const Navbar = () => {
                 <div className="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider mt-1">
                   Connected Network
                 </div>
-                
+
                 <div className="flex items-center justify-between p-2 rounded-lg bg-[#007aff]/10 dark:bg-[#0a84ff]/10 border border-[#007aff]/20 dark:border-[#0a84ff]/20">
                   <div className="flex items-center gap-2">
                     <Wifi className="size-4 text-[#007aff] dark:text-[#0a84ff] animate-pulse" />
@@ -226,11 +233,13 @@ const Navbar = () => {
                           {network.name}
                         </span>
                       </div>
-                      
+
                       {connectingNetwork === network.name ? (
                         <Loader2 className="size-3.5 text-[#007aff] dark:text-[#0a84ff] animate-spin shrink-0" />
                       ) : (
-                        <span className="text-[10px] text-neutral-400">Join</span>
+                        <span className="text-[10px] text-neutral-400">
+                          Join
+                        </span>
                       )}
                     </div>
                   ))}
@@ -271,23 +280,41 @@ const Navbar = () => {
 
             <div className="flex flex-col gap-1.5 py-1 text-xs">
               <div className="flex justify-between">
-                <span className="text-neutral-500 dark:text-neutral-400">System OS</span>
-                <span className="font-semibold text-neutral-800 dark:text-neutral-200">macOS Sequoia (Mock)</span>
+                <span className="text-neutral-500 dark:text-neutral-400">
+                  System OS
+                </span>
+                <span className="font-semibold text-neutral-800 dark:text-neutral-200">
+                  macOS Sequoia (Mock)
+                </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-neutral-500 dark:text-neutral-400">Processor</span>
-                <span className="font-semibold text-neutral-800 dark:text-neutral-200">Apple M4 Max (Mock)</span>
+                <span className="text-neutral-500 dark:text-neutral-400">
+                  Processor
+                </span>
+                <span className="font-semibold text-neutral-800 dark:text-neutral-200">
+                  Apple M4 Max (Mock)
+                </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-neutral-500 dark:text-neutral-400">Memory</span>
-                <span className="font-semibold text-neutral-800 dark:text-neutral-200">32 GB LPDDR5</span>
+                <span className="text-neutral-500 dark:text-neutral-400">
+                  Memory
+                </span>
+                <span className="font-semibold text-neutral-800 dark:text-neutral-200">
+                  32 GB LPDDR5
+                </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-neutral-500 dark:text-neutral-400">Startup Disk</span>
-                <span className="font-semibold text-neutral-800 dark:text-neutral-200">Macintosh HD</span>
+                <span className="text-neutral-500 dark:text-neutral-400">
+                  Startup Disk
+                </span>
+                <span className="font-semibold text-neutral-800 dark:text-neutral-200">
+                  Macintosh HD
+                </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-neutral-500 dark:text-neutral-400">Status</span>
+                <span className="text-neutral-500 dark:text-neutral-400">
+                  Status
+                </span>
                 <span className="text-[#00A154] font-bold">Coding Active</span>
               </div>
             </div>
@@ -314,9 +341,11 @@ const Navbar = () => {
                 Resume
               </button>
             </div>
-            
+
             <button
-              onClick={() => window.open("https://github.com/VeCtORbytes", "_blank")}
+              onClick={() =>
+                window.open("https://github.com/VeCtORbytes", "_blank")
+              }
               className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-[#007aff] dark:bg-[#0a84ff] hover:bg-[#007aff]/90 dark:hover:bg-[#0a84ff]/90 text-white font-semibold transition-colors cursor-pointer text-xs shadow-md shadow-blue-500/10"
             >
               <ExternalLink className="size-3.5" />
@@ -353,7 +382,9 @@ const Navbar = () => {
                   <span className="font-semibold text-xs truncate">Wi-Fi</span>
                   <span
                     className={`text-[9px] truncate mt-0.5 ${
-                      isWifiOn ? "text-blue-100" : "text-neutral-500 dark:text-neutral-400"
+                      isWifiOn
+                        ? "text-blue-100"
+                        : "text-neutral-500 dark:text-neutral-400"
                     }`}
                   >
                     {isWifiOn ? wifiNetwork : "Off"}
@@ -372,16 +403,22 @@ const Navbar = () => {
               >
                 <div
                   className={`size-7 rounded-full flex items-center justify-center ${
-                    isBluetoothOn ? "bg-white/20" : "bg-black/10 dark:bg-white/10"
+                    isBluetoothOn
+                      ? "bg-white/20"
+                      : "bg-black/10 dark:bg-white/10"
                   }`}
                 >
                   <Bluetooth className="size-4" />
                 </div>
                 <div className="flex flex-col leading-none min-w-0">
-                  <span className="font-semibold text-xs truncate">Bluetooth</span>
+                  <span className="font-semibold text-xs truncate">
+                    Bluetooth
+                  </span>
                   <span
                     className={`text-[9px] truncate mt-0.5 ${
-                      isBluetoothOn ? "text-blue-100" : "text-neutral-500 dark:text-neutral-400"
+                      isBluetoothOn
+                        ? "text-blue-100"
+                        : "text-neutral-500 dark:text-neutral-400"
                     }`}
                   >
                     {isBluetoothOn ? "On" : "Off"}
@@ -406,10 +443,14 @@ const Navbar = () => {
                   <RefreshCw className="size-3.5" />
                 </div>
                 <div className="flex flex-col leading-none min-w-0">
-                  <span className="font-semibold text-xs truncate">AirDrop</span>
+                  <span className="font-semibold text-xs truncate">
+                    AirDrop
+                  </span>
                   <span
                     className={`text-[9px] truncate mt-0.5 ${
-                      isAirDropOn ? "text-blue-100" : "text-neutral-500 dark:text-neutral-400"
+                      isAirDropOn
+                        ? "text-blue-100"
+                        : "text-neutral-500 dark:text-neutral-400"
                     }`}
                   >
                     {isAirDropOn ? "Everyone" : "Off"}
@@ -434,10 +475,14 @@ const Navbar = () => {
                   <Moon className="size-4" />
                 </div>
                 <div className="flex flex-col leading-none min-w-0">
-                  <span className="font-semibold text-xs truncate">Dark Mode</span>
+                  <span className="font-semibold text-xs truncate">
+                    Dark Mode
+                  </span>
                   <span
                     className={`text-[9px] truncate mt-0.5 ${
-                      isDark ? "text-blue-105" : "text-neutral-500 dark:text-neutral-400"
+                      isDark
+                        ? "text-blue-105"
+                        : "text-neutral-500 dark:text-neutral-400"
                     }`}
                   >
                     {isDark ? "On" : "Off"}
@@ -455,7 +500,9 @@ const Navbar = () => {
                     <Sun className="size-3.5 text-amber-500" />
                     <span>Display Brightness</span>
                   </span>
-                  <span className="font-bold text-neutral-800 dark:text-neutral-200">{brightness}%</span>
+                  <span className="font-bold text-neutral-800 dark:text-neutral-200">
+                    {brightness}%
+                  </span>
                 </div>
                 <input
                   type="range"
@@ -474,7 +521,9 @@ const Navbar = () => {
                     <Volume2 className="size-3.5 text-blue-500" />
                     <span>Sound Volume</span>
                   </span>
-                  <span className="font-bold text-neutral-800 dark:text-neutral-200">{volume}%</span>
+                  <span className="font-bold text-neutral-800 dark:text-neutral-200">
+                    {volume}%
+                  </span>
                 </div>
                 <input
                   type="range"
@@ -506,7 +555,7 @@ const Navbar = () => {
                   </span>
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => setIsPlaying(!isPlaying)}
@@ -522,7 +571,7 @@ const Navbar = () => {
                   onClick={() => {
                     setCurrentTrack({
                       title: "Cyberpunk Coffee ☕",
-                      artist: "Synthwave Beats Project"
+                      artist: "Synthwave Beats Project",
                     });
                   }}
                   className="size-7 rounded-full bg-white dark:bg-neutral-800 shadow-sm flex items-center justify-center text-neutral-800 dark:text-neutral-200 cursor-pointer hover:scale-105 active:scale-95 transition-all shrink-0 border border-black/5 dark:border-white/5"
@@ -535,7 +584,9 @@ const Navbar = () => {
             {/* Battery status */}
             <div className="flex justify-between items-center text-[10px] text-neutral-400 dark:text-neutral-500 px-1 pt-1.5 border-t border-black/5 dark:border-white/5">
               <span>Battery</span>
-              <span className="font-semibold text-neutral-600 dark:text-neutral-400">100% (Charged) 🔌</span>
+              <span className="font-semibold text-neutral-600 dark:text-neutral-400">
+                100% (Charged) 🔌
+              </span>
             </div>
           </div>
         )}
