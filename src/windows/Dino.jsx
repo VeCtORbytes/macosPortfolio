@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { WindowControls } from "#components";
 import WindowWrapper from "#hoc/windowWrapper";
 
-const DinoGame = () => {
+const DinoGame = ({ isMobile = false }) => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   
@@ -357,14 +357,16 @@ const DinoGame = () => {
   return (
     <div
       ref={containerRef}
-      className="flex flex-col h-full bg-[#1c1c1e] text-white font-sans overflow-hidden select-none"
+      className={`flex flex-col ${isMobile ? 'rounded-2xl border border-neutral-800' : 'h-full'} bg-[#1c1c1e] text-white font-sans overflow-hidden select-none`}
     >
       {/* macOS style Window Header */}
-      <div id="window-header" className="flex items-center justify-between px-4 py-3 bg-[#2c2c2e] border-b border-neutral-800">
-        <WindowControls target="dino" />
-        <h2 className="font-bold text-sm text-center flex-1 text-gray-200">Dino Jump Game 🦖</h2>
-        <div className="w-[52px]" /> {/* Spacer to balance WindowControls */}
-      </div>
+      {!isMobile && (
+        <div id="window-header" className="flex items-center justify-between px-4 py-3 bg-[#2c2c2e] border-b border-neutral-800">
+          <WindowControls target="dino" />
+          <h2 className="font-bold text-sm text-center flex-1 text-gray-200">Dino Jump Game 🦖</h2>
+          <div className="w-[52px]" />
+        </div>
+      )}
 
       {/* Main Game Interface */}
       <div className="flex-1 flex flex-col items-center justify-center p-5 bg-[#0a0a0c] relative">
@@ -393,7 +395,7 @@ const DinoGame = () => {
             ref={canvasRef}
             width={560}
             height={200}
-            className="block"
+            className="block max-w-full"
           />
 
           {/* Prompt overlays */}
@@ -401,7 +403,7 @@ const DinoGame = () => {
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/75 backdrop-blur-xs text-center p-4">
               <span className="text-3xl mb-1.5 animate-bounce">🦖</span>
               <h3 className="font-extrabold text-sm uppercase tracking-widest text-[#39ff14]">RETRO RUNNER</h3>
-              <p className="text-[11px] text-neutral-400 font-mono mt-1">PRESS SPACEBAR OR CLICK TO START</p>
+              <p className="text-[10px] text-neutral-400 font-mono mt-1">TAP SCREEN OR PRESS SPACEBAR TO START</p>
             </div>
           )}
 
@@ -417,7 +419,7 @@ const DinoGame = () => {
                 }}
                 className="mt-3.5 px-4 py-1.5 bg-[#39ff14]/15 hover:bg-[#39ff14]/25 text-[#39ff14] border border-[#39ff14]/30 rounded-lg text-xs font-bold font-mono tracking-widest transition-all uppercase cursor-pointer"
               >
-                PLAY AGAIN (ENTER)
+                PLAY AGAIN
               </button>
             </div>
           )}
@@ -425,13 +427,13 @@ const DinoGame = () => {
 
         {/* Footer hints */}
         <div className="text-[10px] text-neutral-600 font-mono mt-3.5 tracking-wider z-10">
-          CONTROL: <span className="text-neutral-400">SPACEBAR / ARROW UP</span> TO JUMP
+          CONTROL: <span className="text-neutral-400">TAP THE CANVAS</span> TO JUMP
         </div>
       </div>
     </div>
   );
 };
 
+export { DinoGame };
 const DinoWindow = WindowWrapper(DinoGame, "dino");
-
 export default DinoWindow;
