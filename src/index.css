@@ -101,7 +101,9 @@ body {
   outline: 2px solid #0a84ff;
   background: rgba(10, 132, 255, 0.1);
 }
-
+.toast {
+  @apply fixed bottom-8 left-1/2 -translate-x-1/2 bg-black/80 text-white text-xs px-4 py-2 rounded-full shadow-lg z-[9999];
+}
 .quicklook-overlay {
   @apply fixed inset-0 flex items-center justify-center z-[9999];
   background: rgba(0, 0, 0, 0.4);

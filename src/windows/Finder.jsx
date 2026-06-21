@@ -21,22 +21,51 @@ const Finder = () => {
     goForward,
   } = useLocationStore();
   const { openWindow } = useWindowStore();
+  const bodyRef = useRef(null);
   const contentRef = useRef(null);
+  const sidebarRefs = useRef(new Map());
   const lastClickRef = useRef({ id: null, time: 0 });
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
   const [quickLookOpen, setQuickLookOpen] = useState(false);
+  const [trashedItems, setTrashedItems] = useState([]); // [{ item, fromLocationId }]
+  const [toast, setToast] = useState(null);
 
   useEffect(() => {
     setSearchQuery("");
     setSelectedId(null);
   }, [activeLocation]);
 
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 2000);
+    return () => clearTimeout(t);
+  }, [toast]);
+
   const selectedItem =
     activeLocation?.children?.find((c) => c.id === selectedId) ?? null;
 
   const canQuickLook =
     selectedItem && ["txt", "img"].includes(selectedItem.fileType);
+
+  const isTrashed = (item) =>
+    trashedItems.some(
+      (t) => t.item.id === item.id && t.fromLocationId === activeLocation?.id,
+    );
+
+  const baseChildren =
+    activeLocation?.id === locations.trash.id
+      ? [
+          ...(locations.trash.children ?? []),
+          ...trashedItems.map((t) => t.item),
+        ]
+      : activeLocation?.children;
+
+  const filteredChildren = baseChildren?.filter(
+    (item) =>
+      !isTrashed(item) &&
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
 
   const openFavourite = (location) =>
     navigateTo(location, [{ id: location.id, name: location.name, location }]);
@@ -59,22 +88,42 @@ const Finder = () => {
     openWindow(`${item.fileType}${item.kind}`, item);
   };
 
-  const filteredChildren = activeLocation?.children?.filter((item) =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
-
   useGSAP(() => {
     if (!activeLocation) return;
     const items = contentRef.current?.querySelectorAll("li");
     if (!items?.length) return;
 
     const draggables = Draggable.create(items, {
-      bounds: contentRef.current,
+      bounds: bodyRef.current,
       onPress: function () {
         window.dispatchEvent(new Event("item-drag-start"));
       },
-      onRelease: function () {
+      onDragEnd: function () {
         window.dispatchEvent(new Event("item-drag-end"));
+        const id = Number(this.target.dataset.id);
+        const item = filteredChildren?.find((c) => c.id === id);
+        if (!item) return;
+
+        if (activeLocation.id === locations.trash.id) {
+          // restore flow
+          const record = trashedItems.find((t) => t.item.id === id);
+          if (!record) return;
+          const targetEl = sidebarRefs.current.get(record.fromLocationId);
+          if (targetEl && this.hitTest(targetEl, "50%")) {
+            setTrashedItems((prev) => prev.filter((t) => t.item.id !== id));
+            setToast(`Restored "${item.name}"`);
+          }
+        } else {
+          // trash flow
+          const trashEl = sidebarRefs.current.get(locations.trash.id);
+          if (trashEl && this.hitTest(trashEl, "50%")) {
+            setTrashedItems((prev) => [
+              ...prev,
+              { item, fromLocationId: activeLocation.id },
+            ]);
+            setToast(`Moved "${item.name}" to Trash`);
+          }
+        }
       },
       onClick: function () {
         const id = Number(this.target.closest("li").dataset.id);
@@ -96,7 +145,7 @@ const Finder = () => {
     });
 
     return () => draggables.forEach((d) => d.kill());
-  }, [activeLocation, searchQuery]);
+  }, [activeLocation, searchQuery, trashedItems]);
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -119,6 +168,9 @@ const Finder = () => {
         {items.map((item) => (
           <li
             key={item.id}
+            ref={(el) => {
+              if (el) sidebarRefs.current.set(item.id, el);
+            }}
             onClick={() => onClick(item)}
             className={clsx(
               item.id === activeLocation?.id ? "active" : "not-active",
@@ -185,7 +237,7 @@ const Finder = () => {
         </div>
       </div>
 
-      <div className="bg-white flex h-full">
+      <div className="bg-white flex h-full" ref={bodyRef}>
         <div className="sidebar">
           {renderList("Favourites", Object.values(locations), openFavourite)}
           {renderList("Work", locations.work.children, openWorkChild)}
@@ -240,6 +292,9 @@ const Finder = () => {
           </div>,
           document.body,
         )}
+
+      {toast &&
+        createPortal(<div className="toast">{toast}</div>, document.body)}
     </>
   );
 };
