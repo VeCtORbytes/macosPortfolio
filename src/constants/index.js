@@ -584,7 +584,7 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "img",
       position: "top-10 left-5",
-      imageUrl: "/images/sarthak.jpg", // 🔁 replace with your actual photo
+      imageUrl: "/images/sarthak.jpeg", // 🔁 replace with your actual photo
     },
     {
       id: 2,
@@ -593,7 +593,7 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "img",
       position: "top-28 right-72",
-      imageUrl: "/images/sarthak-2.jpg", // 🔁 replace with your actual photo
+      imageUrl: "/images/sarthak-2.jpeg", // 🔁 replace with your actual photo
     },
     {
       id: 3,
@@ -612,7 +612,7 @@ const ABOUT_LOCATION = {
       fileType: "txt",
       position: "top-60 left-5",
       subtitle: "Full Stack Developer | MERN Stack | AWS & DevOps Enthusiast",
-      image: "/images/sarthak.jpg", // 🔁 replace with your actual photo
+      image: "/images/sarthak.jpeg", // 🔁 replace with your actual photo
       description: [
         "Hey! I'm Sarthak Gupta 👋, a Full Stack Developer who works primarily with the MERN stack and enjoys solving real-world problems through software.",
         "Right now I'm building out this portfolio while diving deeper into AWS, Docker, Kubernetes, System Design, Redis, and CI/CD — basically anything cloud-native and DevOps-flavored.",
