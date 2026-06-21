@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import { WindowControls } from "#components";
 import { photosLinks, gallery } from "#constants";
@@ -10,10 +10,7 @@ const Photos = () => {
   const [activeTab, setActiveTab] = useState("Library");
   const [expandedPerson, setExpandedPerson] = useState(false);
 
-  // Reset expansion state when changing tabs
-  useEffect(() => {
-    setExpandedPerson(false);
-  }, [activeTab]);
+
 
   const peoplePhotos = [gallery[0], gallery[1], gallery[4]]; // pic1, pic2, pic5 (containing Sarthak)
 
@@ -48,7 +45,10 @@ const Photos = () => {
             {photosLinks.map((link) => (
               <li
                 key={link.id}
-                onClick={() => setActiveTab(link.title)}
+                onClick={() => {
+                  setActiveTab(link.title);
+                  setExpandedPerson(false);
+                }}
                 className={link.title === activeTab ? "active" : ""}
               >
                 <img src={link.icon} alt={link.title} />

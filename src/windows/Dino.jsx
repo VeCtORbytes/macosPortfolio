@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { WindowControls } from "#components";
 import WindowWrapper from "#hoc/windowWrapper";
 
@@ -38,26 +38,7 @@ const DinoGame = ({ isMobile = false }) => {
     }
   });
 
-  const triggerJump = () => {
-    const state = gameStateRef.current;
-    if (state.gameOver) {
-      restartGame();
-      return;
-    }
-    
-    if (!state.gameActive) {
-      state.gameActive = true;
-      setIsPlaying(true);
-      return;
-    }
-    
-    if (!state.dino.isJumping) {
-      state.dino.vy = state.dino.jumpForce;
-      state.dino.isJumping = true;
-    }
-  };
-
-  const restartGame = () => {
+  const restartGame = useCallback(() => {
     gameStateRef.current = {
       score: 0,
       speed: 4.5,
@@ -80,7 +61,26 @@ const DinoGame = ({ isMobile = false }) => {
     setScore(0);
     setIsGameOver(false);
     setIsPlaying(true);
-  };
+  }, []);
+
+  const triggerJump = useCallback(() => {
+    const state = gameStateRef.current;
+    if (state.gameOver) {
+      restartGame();
+      return;
+    }
+    
+    if (!state.gameActive) {
+      state.gameActive = true;
+      setIsPlaying(true);
+      return;
+    }
+    
+    if (!state.dino.isJumping) {
+      state.dino.vy = state.dino.jumpForce;
+      state.dino.isJumping = true;
+    }
+  }, [restartGame]);
 
   // Input listeners
   useEffect(() => {
@@ -96,7 +96,7 @@ const DinoGame = ({ isMobile = false }) => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [triggerJump, restartGame]);
 
   // Main Canvas Game Loop
   useEffect(() => {

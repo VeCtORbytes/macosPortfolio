@@ -30,7 +30,14 @@ const Navbar = () => {
   
   const [activeMenu, setActiveMenu] = useState(null);
   const [time, setTime] = useState("");
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      return saved === "dark" || (!saved && prefersDark);
+    }
+    return false;
+  });
 
   // Advanced Mock State for interactive features
   const [wifiNetwork, setWifiNetwork] = useState("Sarthak's Brain 5G");
@@ -59,16 +66,12 @@ const Navbar = () => {
 
   // Initialize and load dark mode preference on mount
   useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const active = saved === "dark" || (!saved && prefersDark);
-    if (active) {
+    if (isDark) {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
-    setIsDark(active);
-  }, []);
+  }, [isDark]);
 
   // Global close listener on click outside
   useEffect(() => {

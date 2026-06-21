@@ -32,7 +32,7 @@ const App = () => {
 
   const [isDesktop, setIsDesktop] = useState(() => {
     if (typeof window !== "undefined") {
-      return window.innerWidth >= 768;
+      return window.matchMedia("(min-width: 768px)").matches;
     }
     return true;
   });
@@ -48,8 +48,6 @@ const App = () => {
     } else {
       mediaQuery.addListener(handleResize);
     }
-
-    setIsDesktop(mediaQuery.matches);
 
     return () => {
       if (mediaQuery.removeEventListener) {

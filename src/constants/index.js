@@ -238,13 +238,15 @@ const WORK_LOCATION = {
             "Developed during my AI + Full Stack Engineering internship.",
           ],
           caseStudy: {
-            problem: "Recruiters needed a hiring workspace to screen resumes and score candidates without manual review bottlenecks.",
+            problem:
+              "Recruiters needed a hiring workspace to screen resumes and score candidates without manual review bottlenecks.",
             approach: [
               "Built with Next.js 15 and React 19 using a modular, scalable architecture.",
               "Used PostgreSQL and Supabase for structured candidate/job data and auth.",
               "Optimized rendering strategy for fast load on large resume datasets.",
             ],
-            result: "Reduced manual screening effort by automating resume parsing and AI-driven candidate scoring.",
+            result:
+              "Reduced manual screening effort by automating resume parsing and AI-driven candidate scoring.",
           },
         },
         {
@@ -303,13 +305,15 @@ const WORK_LOCATION = {
             "Built with Next.js 15, React 19, Supabase (PostgreSQL), Clerk, and Monaco Editor as a personal project.",
           ],
           caseStudy: {
-            problem: "Needed a LeetCode-style platform that runs untrusted multi-language code without exposing the server to abuse.",
+            problem:
+              "Needed a LeetCode-style platform that runs untrusted multi-language code without exposing the server to abuse.",
             approach: [
               "Built a sandboxed server-side execution engine (JS, Python, C++) using Monaco Editor as the workspace.",
               "Designed a PostgreSQL schema with 7+ indexes and atomic RPC functions for race-condition-free submission voting.",
               "Integrated Row Level Security and Clerk OAuth for per-user data isolation.",
             ],
-            result: "Live platform handling concurrent code execution and submissions with zero race-condition bugs.",
+            result:
+              "Live platform handling concurrent code execution and submissions with zero race-condition bugs.",
           },
         },
         {
@@ -360,13 +364,15 @@ const WORK_LOCATION = {
             "Created during my Full Stack Developer internship.",
           ],
           caseStudy: {
-            problem: "Wanted to simulate real stock trading (Zerodha-style) with live portfolio tracking but no real money risk.",
+            problem:
+              "Wanted to simulate real stock trading (Zerodha-style) with live portfolio tracking but no real money risk.",
             approach: [
               "Built on the MERN stack with Chart.js for real-time market data visualization.",
               "Implemented bcrypt password hashing and a custom middleware pipeline for auth.",
               "Designed portfolio management and transaction tracking with validation on every trade.",
             ],
-            result: "Fully functional trading simulator with real-time visualization and validated transaction history.",
+            result:
+              "Fully functional trading simulator with real-time visualization and validated transaction history.",
           },
         },
         {
@@ -416,14 +422,16 @@ const WORK_LOCATION = {
             "Built with Node.js, Express.js (MVC/EJS), MongoDB (Mongoose), Mapbox, and Cloudinary as a personal project.",
           ],
           caseStudy: {
-            problem: "Needed a travel/property listing platform that scales horizontally without session-state bottlenecks.",
+            problem:
+              "Needed a travel/property listing platform that scales horizontally without session-state bottlenecks.",
             approach: [
               "Architected an MVC REST API with GeoJSON/Mapbox geocoding and Cloudinary image transforms.",
               "Built a MongoDB-backed session store designed for horizontal scaling.",
               "Implemented 3-layer RBAC middleware (isOwner, isReviewAuthor, isLoggedIn) with Joi schema validation on all payloads.",
               "Added cascading Mongoose hooks for automatic orphaned-data cleanup.",
             ],
-            result: "Production-ready listing platform with secure role-based access and self-cleaning data integrity.",
+            result:
+              "Production-ready listing platform with secure role-based access and self-cleaning data integrity.",
           },
         },
         {
@@ -473,13 +481,15 @@ const WORK_LOCATION = {
             "Built with React, Node.js, Express.js, Groq SDK, and Axios as a personal project.",
           ],
           caseStudy: {
-            problem: "AI code-review tools fail when a single LLM provider hits rate limits or goes down.",
+            problem:
+              "AI code-review tools fail when a single LLM provider hits rate limits or goes down.",
             approach: [
               "Built an LLM pipeline with automatic fallback across 5 Groq models to maintain uptime.",
               "Added severity-based issue categorization (Critical/Warning/Info).",
               "Enforced a 50KB payload guard and custom error codes (400/401/429) for safe, structured analysis.",
             ],
-            result: "Resilient review pipeline that stays available even during individual model rate-limiting or outages.",
+            result:
+              "Resilient review pipeline that stays available even during individual model rate-limiting or outages.",
           },
         },
         {
@@ -529,12 +539,14 @@ const WORK_LOCATION = {
             "Built using MERN stack technologies.",
           ],
           caseStudy: {
-            problem: "Needed a clean task manager to practice full CRUD + auth patterns end-to-end.",
+            problem:
+              "Needed a clean task manager to practice full CRUD + auth patterns end-to-end.",
             approach: [
               "Built full authentication flow with protected routes.",
               "Implemented CRUD operations with a responsive UI across devices.",
             ],
-            result: "Working task manager demonstrating complete MERN auth + CRUD fundamentals.",
+            result:
+              "Working task manager demonstrating complete MERN auth + CRUD fundamentals.",
           },
         },
         {
