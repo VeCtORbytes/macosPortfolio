@@ -61,6 +61,23 @@ const useLocationStore = create(
         state.history = [DEFAULT_PATH];
         state.historyIndex = 0;
       }),
+
+    trashedItems: [],
+
+    moveToTrash: (item, fromLocationId) =>
+      set((state) => {
+        state.trashedItems.push({ item, fromLocationId });
+      }),
+
+    restoreFromTrash: (itemId) =>
+      set((state) => {
+        state.trashedItems = state.trashedItems.filter((t) => t.item.id !== itemId);
+      }),
+
+    emptyTrash: () =>
+      set((state) => {
+        state.trashedItems = [];
+      }),
   })),
 );
 

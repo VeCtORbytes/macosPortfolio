@@ -8,6 +8,7 @@ import { locations } from "#constants/index.js";
 import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/all";
 import { useRef, useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 const Finder = () => {
   const {
@@ -18,14 +19,55 @@ const Finder = () => {
     navigateTo,
     goBack,
     goForward,
+    trashedItems,
+    moveToTrash,
+    restoreFromTrash,
   } = useLocationStore();
   const { openWindow } = useWindowStore();
+  const bodyRef = useRef(null);
   const contentRef = useRef(null);
+  const sidebarRefs = useRef(new Map());
+  const lastClickRef = useRef({ id: null, time: 0 });
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
+  const [quickLookOpen, setQuickLookOpen] = useState(false);
+  const [toast, setToast] = useState(null);
 
   useEffect(() => {
     setSearchQuery("");
+    setSelectedId(null);
   }, [activeLocation]);
+
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 2000);
+    return () => clearTimeout(t);
+  }, [toast]);
+
+  const selectedItem =
+    activeLocation?.children?.find((c) => c.id === selectedId) ?? null;
+
+  const canQuickLook =
+    selectedItem && ["txt", "img"].includes(selectedItem.fileType);
+
+  const isTrashed = (item) =>
+    trashedItems.some(
+      (t) => t.item.id === item.id && t.fromLocationId === activeLocation?.id,
+    );
+
+  const baseChildren =
+    activeLocation?.id === locations.trash.id
+      ? [
+          ...(locations.trash.children ?? []),
+          ...trashedItems.map((t) => t.item),
+        ]
+      : activeLocation?.children;
+
+  const filteredChildren = baseChildren?.filter(
+    (item) =>
+      !isTrashed(item) &&
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
 
   const openFavourite = (location) =>
     navigateTo(location, [{ id: location.id, name: location.name, location }]);
@@ -48,32 +90,75 @@ const Finder = () => {
     openWindow(`${item.fileType}${item.kind}`, item);
   };
 
-  const filteredChildren = activeLocation?.children?.filter((item) =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   useGSAP(() => {
     if (!activeLocation) return;
     const items = contentRef.current?.querySelectorAll("li");
     if (!items?.length) return;
 
     const draggables = Draggable.create(items, {
-      bounds: contentRef.current,
+      bounds: bodyRef.current,
       onPress: function () {
         window.dispatchEvent(new Event("item-drag-start"));
       },
-      onRelease: function () {
+      onDragEnd: function () {
         window.dispatchEvent(new Event("item-drag-end"));
+        const id = Number(this.target.dataset.id);
+        const item = filteredChildren?.find((c) => c.id === id);
+        if (!item) return;
+
+        if (activeLocation.id === locations.trash.id) {
+          // restore flow
+          const record = trashedItems.find((t) => t.item.id === id);
+          if (!record) return;
+          const targetEl = sidebarRefs.current.get(record.fromLocationId);
+          if (targetEl && this.hitTest(targetEl, "50%")) {
+            restoreFromTrash(id);
+            setToast(`Restored "${item.name}"`);
+          }
+        } else {
+          // trash flow
+          const trashEl = sidebarRefs.current.get(locations.trash.id);
+          if (trashEl && this.hitTest(trashEl, "50%")) {
+            moveToTrash(item, activeLocation.id);
+            setToast(`Moved "${item.name}" to Trash`);
+          }
+        }
       },
       onClick: function () {
         const id = Number(this.target.closest("li").dataset.id);
         const item = filteredChildren?.find((c) => c.id === id);
-        if (item) openItem(item);
+        if (!item) return;
+
+        const now = Date.now();
+        const isDoubleClick =
+          lastClickRef.current.id === id &&
+          now - lastClickRef.current.time < 400;
+        lastClickRef.current = { id, time: now };
+
+        if (isDoubleClick) {
+          openItem(item);
+        } else {
+          setSelectedId(id);
+        }
       },
     });
 
     return () => draggables.forEach((d) => d.kill());
-  }, [activeLocation, searchQuery]);
+  }, [activeLocation, searchQuery, trashedItems]);
+
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
+        return;
+      if (e.code === "Space" && canQuickLook) {
+        e.preventDefault();
+        setQuickLookOpen((open) => !open);
+      }
+      if (e.code === "Escape") setQuickLookOpen(false);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [canQuickLook]);
 
   const renderList = (name, items, onClick) => (
     <div>
@@ -82,6 +167,9 @@ const Finder = () => {
         {items.map((item) => (
           <li
             key={item.id}
+            ref={(el) => {
+              if (el) sidebarRefs.current.set(item.id, el);
+            }}
             onClick={() => onClick(item)}
             className={clsx(
               item.id === activeLocation?.id ? "active" : "not-active",
@@ -148,20 +236,64 @@ const Finder = () => {
         </div>
       </div>
 
-      <div className="bg-white flex h-full">
+      <div className="bg-white flex h-full" ref={bodyRef}>
         <div className="sidebar">
           {renderList("Favourites", Object.values(locations), openFavourite)}
           {renderList("Work", locations.work.children, openWorkChild)}
         </div>
         <ul className="content" ref={contentRef}>
           {filteredChildren?.map((item) => (
-            <li key={item.id} data-id={item.id}>
+            <li
+              key={item.id}
+              data-id={item.id}
+              className={clsx(item.id === selectedId && "selected")}
+            >
               <img src={item.icon} alt={item.name} />
               <p>{item.name}</p>
             </li>
           ))}
         </ul>
       </div>
+
+      <div className="statusbar">
+        <span>
+          {selectedItem
+            ? selectedItem.name
+            : `${filteredChildren?.length ?? 0} items`}
+        </span>
+        {canQuickLook && <span className="hint">Space to Quick Look</span>}
+      </div>
+
+      {quickLookOpen &&
+        selectedItem &&
+        createPortal(
+          <div
+            className="quicklook-overlay"
+            onClick={() => setQuickLookOpen(false)}
+          >
+            <div
+              className="quicklook-panel"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {selectedItem.fileType === "img" && (
+                <img src={selectedItem.imageUrl} alt={selectedItem.name} />
+              )}
+              {selectedItem.fileType === "txt" && (
+                <div className="quicklook-text">
+                  {selectedItem.subtitle && <h3>{selectedItem.subtitle}</h3>}
+                  {selectedItem.description?.map((line, i) => (
+                    <p key={i}>{line}</p>
+                  ))}
+                </div>
+              )}
+              <p className="quicklook-filename">{selectedItem.name}</p>
+            </div>
+          </div>,
+          document.body,
+        )}
+
+      {toast &&
+        createPortal(<div className="toast">{toast}</div>, document.body)}
     </>
   );
 };
