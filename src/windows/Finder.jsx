@@ -8,6 +8,7 @@ import { locations } from "#constants/index.js";
 import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/all";
 import { useRef, useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 const Finder = () => {
   const {
@@ -21,11 +22,21 @@ const Finder = () => {
   } = useLocationStore();
   const { openWindow } = useWindowStore();
   const contentRef = useRef(null);
+  const lastClickRef = useRef({ id: null, time: 0 });
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
+  const [quickLookOpen, setQuickLookOpen] = useState(false);
 
   useEffect(() => {
     setSearchQuery("");
+    setSelectedId(null);
   }, [activeLocation]);
+
+  const selectedItem =
+    activeLocation?.children?.find((c) => c.id === selectedId) ?? null;
+
+  const canQuickLook =
+    selectedItem && ["txt", "img"].includes(selectedItem.fileType);
 
   const openFavourite = (location) =>
     navigateTo(location, [{ id: location.id, name: location.name, location }]);
@@ -49,7 +60,7 @@ const Finder = () => {
   };
 
   const filteredChildren = activeLocation?.children?.filter((item) =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    item.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   useGSAP(() => {
@@ -68,12 +79,38 @@ const Finder = () => {
       onClick: function () {
         const id = Number(this.target.closest("li").dataset.id);
         const item = filteredChildren?.find((c) => c.id === id);
-        if (item) openItem(item);
+        if (!item) return;
+
+        const now = Date.now();
+        const isDoubleClick =
+          lastClickRef.current.id === id &&
+          now - lastClickRef.current.time < 400;
+        lastClickRef.current = { id, time: now };
+
+        if (isDoubleClick) {
+          openItem(item);
+        } else {
+          setSelectedId(id);
+        }
       },
     });
 
     return () => draggables.forEach((d) => d.kill());
   }, [activeLocation, searchQuery]);
+
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
+        return;
+      if (e.code === "Space" && canQuickLook) {
+        e.preventDefault();
+        setQuickLookOpen((open) => !open);
+      }
+      if (e.code === "Escape") setQuickLookOpen(false);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [canQuickLook]);
 
   const renderList = (name, items, onClick) => (
     <div>
@@ -155,13 +192,54 @@ const Finder = () => {
         </div>
         <ul className="content" ref={contentRef}>
           {filteredChildren?.map((item) => (
-            <li key={item.id} data-id={item.id}>
+            <li
+              key={item.id}
+              data-id={item.id}
+              className={clsx(item.id === selectedId && "selected")}
+            >
               <img src={item.icon} alt={item.name} />
               <p>{item.name}</p>
             </li>
           ))}
         </ul>
       </div>
+
+      <div className="statusbar">
+        <span>
+          {selectedItem
+            ? selectedItem.name
+            : `${filteredChildren?.length ?? 0} items`}
+        </span>
+        {canQuickLook && <span className="hint">Space to Quick Look</span>}
+      </div>
+
+      {quickLookOpen &&
+        selectedItem &&
+        createPortal(
+          <div
+            className="quicklook-overlay"
+            onClick={() => setQuickLookOpen(false)}
+          >
+            <div
+              className="quicklook-panel"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {selectedItem.fileType === "img" && (
+                <img src={selectedItem.imageUrl} alt={selectedItem.name} />
+              )}
+              {selectedItem.fileType === "txt" && (
+                <div className="quicklook-text">
+                  {selectedItem.subtitle && <h3>{selectedItem.subtitle}</h3>}
+                  {selectedItem.description?.map((line, i) => (
+                    <p key={i}>{line}</p>
+                  ))}
+                </div>
+              )}
+              <p className="quicklook-filename">{selectedItem.name}</p>
+            </div>
+          </div>,
+          document.body,
+        )}
     </>
   );
 };
