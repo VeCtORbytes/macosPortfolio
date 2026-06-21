@@ -137,10 +137,10 @@ export const socials = [
   },
   {
     id: 3,
-    text: "LeetCode",
-    icon: "/icons/leetcode.svg",
+    text: "Twitter/X",
+    icon: "/icons/twitter.svg",
     bg: "#FFA116",
-    link: "https://leetcode.com/u/sarthak_gupta25/",
+    link: "https://x.com/Sarthak_Gupta25",
   },
   {
     id: 4,
