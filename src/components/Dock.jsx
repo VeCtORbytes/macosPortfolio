@@ -7,7 +7,7 @@ import { dockApps } from "#constants";
 import useWindowStore from "#store/window";
 
   const Dock = () => {
-  const {openWindow , closeWindow , windows} = useWindowStore();
+  const { openWindow, closeWindow, focusWindow, restoreWindow, windows } = useWindowStore();
   const dockRef = useRef(null);
 
   useGSAP(() => {
@@ -63,19 +63,30 @@ import useWindowStore from "#store/window";
   const toggleApp = (app) => {
     if (!app.canOpen) return;
 
-    const window = windows[app.id];
+    const winState = windows[app.id];
 
-    if(!window){
-      console.error(`Window not found for app ${app.id}`)
+    if (!winState) {
+      console.error(`Window not found for app ${app.id}`);
       return;
     }
 
-    if(window.isOpen){
-      closeWindow(app.id);
-    }else{
-      openWindow(app.id)
+    if (!winState.isOpen) {
+      openWindow(app.id);
+    } else if (winState.isMinimized) {
+      restoreWindow(app.id);
+    } else {
+      // Find the maximum zIndex among all open, non-minimized windows
+      const openWindows = Object.values(windows).filter((w) => w.isOpen && !w.isMinimized);
+      const maxZIndex = openWindows.length > 0 ? Math.max(...openWindows.map((w) => w.zIndex)) : 0;
+
+      if (winState.zIndex < maxZIndex) {
+        // Bring to front if it is behind other windows
+        focusWindow(app.id);
+      } else {
+        // Already on top, close it
+        closeWindow(app.id);
+      }
     }
-    console.log(windows);
   };
 
   return (

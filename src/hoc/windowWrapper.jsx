@@ -90,6 +90,7 @@ const WindowWrapper = (Component, WindowKey) => {
         ref={ref}
         style={{ zIndex }}
         className={`absolute window ${isMaximized ? "maximized" : ""}`}
+        onMouseDown={() => focusWindow(WindowKey)}
       >
         <Component
           {...props}
