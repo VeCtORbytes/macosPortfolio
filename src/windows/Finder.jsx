@@ -19,6 +19,9 @@ const Finder = () => {
     navigateTo,
     goBack,
     goForward,
+    trashedItems,
+    moveToTrash,
+    restoreFromTrash,
   } = useLocationStore();
   const { openWindow } = useWindowStore();
   const bodyRef = useRef(null);
@@ -28,7 +31,6 @@ const Finder = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
   const [quickLookOpen, setQuickLookOpen] = useState(false);
-  const [trashedItems, setTrashedItems] = useState([]); // [{ item, fromLocationId }]
   const [toast, setToast] = useState(null);
 
   useEffect(() => {
@@ -110,17 +112,14 @@ const Finder = () => {
           if (!record) return;
           const targetEl = sidebarRefs.current.get(record.fromLocationId);
           if (targetEl && this.hitTest(targetEl, "50%")) {
-            setTrashedItems((prev) => prev.filter((t) => t.item.id !== id));
+            restoreFromTrash(id);
             setToast(`Restored "${item.name}"`);
           }
         } else {
           // trash flow
           const trashEl = sidebarRefs.current.get(locations.trash.id);
           if (trashEl && this.hitTest(trashEl, "50%")) {
-            setTrashedItems((prev) => [
-              ...prev,
-              { item, fromLocationId: activeLocation.id },
-            ]);
+            moveToTrash(item, activeLocation.id);
             setToast(`Moved "${item.name}" to Trash`);
           }
         }
