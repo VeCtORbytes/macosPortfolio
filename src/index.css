@@ -15,6 +15,8 @@ body {
   background-position: center;
 }
 
+/* Custom responsive layout queries placed at end of file */
+
 @theme {
   --font-georama: "Georama", sans-serif;
   --font-roboto: "Roboto Mono", monospace;
@@ -33,10 +35,20 @@ body {
   @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 }
 
+@utility scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @layer base {
   main {
     @apply w-dvw h-dvh overflow-hidden;
   }
+
+  /* Responsive main overrides placed at end of file */
 
   nav {
     @apply flex justify-between items-center bg-white/50 backdrop-blur-3xl p-2 px-5 select-none;
@@ -64,6 +76,7 @@ body {
 }
 
 @layer components {
+  /* Mobile styles are managed via utility classes in MobileView.jsx */
   .icon {
     @apply p-1 hover:bg-gray-200 rounded hover:cursor-default;
   }
@@ -513,6 +526,36 @@ body {
     h2 {
       @apply font-bold text-sm text-center w-full;
     }
+
+    .case-study {
+      @apply mt-4 space-y-4 border-t border-gray-100/80 pt-4;
+
+      .case-block {
+        h4 {
+          @apply text-[11px] font-semibold uppercase tracking-wide text-gray-400 mb-1.5;
+        }
+
+        p {
+          @apply text-sm text-gray-600 leading-relaxed;
+        }
+
+        ul {
+          @apply space-y-1.5 text-sm text-gray-600 leading-relaxed list-disc pl-4;
+        }
+      }
+
+      .result {
+        @apply bg-green-50 -mx-2 px-3 py-2.5 rounded-lg;
+
+        h4 {
+          @apply text-green-700;
+        }
+
+        p {
+          @apply text-green-800 font-medium;
+        }
+      }
+    }
   }
 
   #imgfile {
@@ -534,8 +577,12 @@ body {
     }
   }
 
+  #dino {
+    @apply w-[600px] h-fit absolute top-28 left-4/12 shadow-2xl drop-shadow-2xl overflow-hidden rounded-2xl bg-[#0a0a0c] border border-neutral-800;
+  }
+
   #home {
-    @apply relative z-0 max-sm:hidden;
+    @apply relative z-0;
 
     ul {
       li {
@@ -552,4 +599,246 @@ body {
     }
   }
 
+}
+
+/* ==========================================================================
+   Responsive macOS lookalike overrides for screens < 768px (Mobile & Portrait Tablets)
+   ========================================================================== */
+@media (max-width: 767px) {
+  /* 1. Reset document container back to single static desktop viewport */
+  html,
+  body {
+    width: 100dvw !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+    background-image: url("/images/wallpaper.png") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+  }
+  
+  main {
+    width: 100dvw !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  /* 2. Scale menu bar for smaller widths */
+  nav {
+    padding: 3px 8px !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+  nav > div {
+    gap: 8px !important;
+    width: auto !important;
+    justify-content: flex-start !important;
+  }
+  nav > div:last-child {
+    display: flex !important;
+  }
+  nav time {
+    font-size: 10px !important;
+  }
+  nav .max-sm\:hidden {
+    display: flex !important;
+    gap: 6px !important;
+  }
+
+  /* 3. Re-arrange desktop folders grid */
+  #home {
+    display: block !important;
+    width: 100dvw !important;
+    height: calc(100dvh - 100px) !important;
+    position: absolute !important;
+    top: 36px !important;
+    left: 0 !important;
+    z-index: 10 !important;
+    overflow: hidden !important;
+  }
+  #home ul {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 12px 6px !important;
+    padding: 12px 10px !important;
+    width: 100% !important;
+  }
+  #home ul li {
+    position: static !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: auto !important;
+  }
+  #home ul li img {
+    width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
+  }
+  #home ul li p {
+    font-size: 9px !important;
+    max-width: 72px !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9) !important;
+    margin-top: 3px !important;
+    background: transparent !important;
+    color: white !important;
+    line-height: 1.1 !important;
+  }
+
+  /* 4. Responsive Window Overlay scaling & layout centering */
+  .window {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    height: 68dvh !important;
+    max-height: 68dvh !important;
+    top: 48px !important;
+    left: 2.5vw !important;
+    right: 2.5vw !important;
+    transform: none !important; /* disable GSAP position shifts to preserve center */
+    z-index: 9999 !important;
+  }
+
+  #window-header {
+    padding: 6px 10px !important;
+  }
+
+  /* 5. Window Inner App Responsiveness */
+  /* Finder */
+  #finder {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 68dvh !important;
+  }
+  #finder .sidebar {
+    display: none !important;
+  }
+  #finder .content {
+    padding: 12px !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+    overflow-y: auto !important;
+  }
+  #finder .content li {
+    width: auto !important;
+    min-height: 70px !important;
+  }
+  #finder .content li img {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  #finder .content li p {
+    font-size: 9px !important;
+  }
+
+  /* Safari */
+  #safari {
+    height: 68dvh !important;
+  }
+  #safari .blog {
+    padding: 12px !important;
+  }
+  #safari .blog-post {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    padding: 10px 0 !important;
+  }
+  #safari .blog-post .image-container {
+    width: 100% !important;
+    aspect-ratio: 16/10 !important;
+  }
+
+  /* Terminal */
+  #terminal {
+    height: 68dvh !important;
+  }
+  #terminal .techstack {
+    padding: 8px !important;
+  }
+  #terminal .techstack .label {
+    margin-left: 8px !important;
+    margin-top: 8px !important;
+  }
+  #terminal .techstack .content {
+    margin: 8px 0 !important;
+    padding: 8px 0 !important;
+  }
+  #terminal .techstack .content li {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 2px !important;
+  }
+  #terminal .techstack .content li h3 {
+    margin-left: 0 !important;
+    width: auto !important;
+  }
+
+  /* Photos */
+  #photos {
+    height: 68dvh !important;
+  }
+  #photos .sidebar {
+    display: none !important;
+  }
+  #photos .gallery {
+    max-height: 55dvh !important;
+    padding: 10px !important;
+  }
+  #photos .gallery ul {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  /* Contact */
+  #contact {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    height: 68dvh !important;
+  }
+  #contact .contact-content {
+    padding: 12px !important;
+  }
+  #contact h3 {
+    font-size: 18px !important;
+  }
+  #contact ul {
+    flex-direction: column !important;
+    gap: 6px !important;
+  }
+  #contact ul li {
+    width: 100% !important;
+  }
+  #contact ul li a {
+    height: 50px !important;
+    padding: 8px !important;
+  }
+
+  /* Dino Game */
+  #dino {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    height: 68dvh !important;
+  }
+
+  /* 6. Bottom Dock adaptation */
+  #dock {
+    display: block !important;
+    position: fixed !important;
+    bottom: 8px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: auto !important;
+    max-width: 95% !important;
+    z-index: 99999 !important;
+  }
+  #dock .dock-container {
+    padding: 4px !important;
+    gap: 6px !important;
+    border-radius: 14px !important;
+  }
+  #dock .dock-icon {
+    width: 36px !important;
+    height: 36px !important;
+  }
 }

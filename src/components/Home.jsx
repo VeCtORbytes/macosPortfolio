@@ -55,6 +55,13 @@ const desktopItems = [
     position: "top-44 right-10",
     action: "contact",
   },
+  {
+    id: "dino",
+    name: "Dino Game",
+    icon: "/images/game.png",
+    position: "top-[312px] right-10",
+    action: "dino",
+  },
 ];
 
 const Home = () => {
@@ -88,6 +95,8 @@ const Home = () => {
       openWindow("resume");
     } else if (item.action === "contact") {
       openWindow("contact");
+    } else if (item.action === "dino") {
+      openWindow("dino");
     }
   };
 
